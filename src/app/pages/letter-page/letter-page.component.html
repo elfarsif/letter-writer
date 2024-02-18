@@ -1,0 +1,49 @@
+<div class="page-instructions">
+  <h1 class="page-title">Direct Action 101</h1>
+
+  <h3>Send a letter to your MP</h3>
+  <form [formGroup]="letterParameters" (ngSubmit)="submitForm()">
+    <input type="text" formControlName="postalCode" placeholder="Postal Code" />
+    <select id="typeSelect" formControlName="letterType">
+      <option value="" disabled selected>Select a type</option>
+      <option value="critique">Critique general climate targets</option>
+      <option value="requestPolicy">request more funding/research of</option>
+      <option value="thank">thank someone for their advocacy work of</option>
+      <option value="prompt">Other generalized issue</option>
+    </select>
+    <div>
+      <input
+        *ngIf="letterParameters.get('letterType')?.value === 'prompt'"
+        type="text"
+        formControlName="promptIssue"
+        placeholder="Ex I want to ask my mp to invest in more transit"
+        style="width: 500px"
+      />
+      <!-- In 50 words introduce a call to action for more environmental policies in government -->
+      <input
+        *ngIf="letterParameters.get('letterType')?.value === 'requestPolicy'"
+        type="text"
+        formControlName="requestPolicyPrompt"
+        placeholder="Ex for effects of transit on the environment"
+        style="width: 500px"
+      />
+      <input
+        *ngIf="letterParameters.get('letterType')?.value === 'thank'"
+        type="text"
+        formControlName="thankPrompt"
+        placeholder="Ex for effects of transit on the environment"
+        style="width: 500px"
+      />
+      <!-- effect of green spaces in urban areas on mental health -->
+    </div>
+
+    <button mat-button type="submit">click</button>
+    <div *ngIf="isLoading" class="loading-spinner">
+      <!-- Loading spinner or message -->
+      <mat-progress-spinner mode="indeterminate"></mat-progress-spinner>
+    </div>
+  </form>
+</div>
+<br />
+
+<quill-editor [(ngModel)]="content"></quill-editor>
